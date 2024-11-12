@@ -15,7 +15,7 @@ app.use(requestLogger);
 app.use(express.static('public'));
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server + Watching");
+  res.send("Little Mars Health Check");
 });
 
 app.use('/rovers', roverRouter);
@@ -23,6 +23,8 @@ app.use('/file', fileRouter);
 
 app.listen(port)
   .on('listening', () => {
+  console.log(`[server]: NODE_ENV=${process.env.NODE_ENV}`);
+  console.log(`[server]: LOG_LEVEL=${process.env.NASA_API_KEY}`);
   console.log(`[server]: Server is running at http://localhost:${port}`);
 })
 .on('error', (error) => {

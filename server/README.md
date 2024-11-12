@@ -25,7 +25,7 @@ npm install
 ## Build
 
 ### Build locally
-
+I have passed .env in GitHub just for easy testing
 ```bash
 npm run build
 ```
@@ -45,7 +45,7 @@ Express.js will start up the server at port **3000**.  The APIs will be accessib
 After running `npm run docker`, run the following command to start the docker container:
 
 ```bash
-docker run -p 3000:3000 -t [TBD] -d
+docker run -p 3000:3000 --env-file .env little-mars-server:latest
 ```
 
 Express will start up the server in the Docker container at port **3000**.  The APIs will be accessible at `http://localhost:3000`
