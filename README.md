@@ -3,7 +3,6 @@
 We would like you to complete a programming exercise that uses the NASA API(https://api.nasa.gov/) to build a project hosted on GitHub. Specifically, the task is to call the Mars Rover API and select a picture taken on a given day, then download and store each image locally.
 
 ## Acceptance Criteria:
-Once complete, please send a link to your GitHub repository to paul.jeter@resi.io.
 The application should pull images for the following dates by reading from a text file:
 02/27/17
 June 2, 2018
