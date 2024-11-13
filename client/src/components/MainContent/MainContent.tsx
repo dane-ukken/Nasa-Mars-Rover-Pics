@@ -55,6 +55,7 @@ const MainContent = () => {
 
   return (
     <>
+      <h2 className="text-4xl font-bold text-center py-4">{selectedRover.toUpperCase()} - {selectedDate}</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto">
           <thead className="bg-gray-100">

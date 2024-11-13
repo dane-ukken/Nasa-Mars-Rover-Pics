@@ -6,11 +6,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/rovers': {
-        target: 'http://localhost:3000',
+        target: 'http://localhost:3000/api/v1',
         changeOrigin: true
       },
       '/file': {
-        target: 'http://localhost:3000',
+        target: 'http://localhost:3000/api/v1',
         changeOrigin: true
       }
     }

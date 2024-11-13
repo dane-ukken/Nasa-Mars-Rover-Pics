@@ -6,4 +6,4 @@ export const DOWNLOAD_PATH = {
         path.join(process.cwd(), 'public', 'downloads', roverName, earthDate, camera)
 };
 
-export const FILE_PATH = path.join(process.cwd(), 'public', 'file.txt') 
+export const FILE_PATH = path.join(process.cwd(), 'public', 'file.txt')

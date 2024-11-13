@@ -14,15 +14,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use(express.static('public'));
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server + Watching");
-});
+const apiRouter = express.Router();
 
-app.use('/rovers', roverRouter);
-app.use('/file', fileRouter);
+apiRouter.get("/", (req: Request, res: Response) => {
+  res.send("Little Mars Health Check");
+});
+apiRouter.use('/rovers', roverRouter);
+apiRouter.use('/file', fileRouter);
+
+app.use('/api/v1', apiRouter);
 
 app.listen(port)
   .on('listening', () => {
+  console.log(`[server]: NODE_ENV=${process.env.NODE_ENV}`);
+  console.log(`[server]: LOG_LEVEL=${process.env.LOG_LEVEL}`);
   console.log(`[server]: Server is running at http://localhost:${port}`);
 })
 .on('error', (error) => {
