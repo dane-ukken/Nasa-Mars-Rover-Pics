@@ -31,3 +31,7 @@ pnpm-debug.log*
 
 public/downloads/*
 !public/downloads/.gitkeep
+
+# Testing
+coverage/
+.env.test

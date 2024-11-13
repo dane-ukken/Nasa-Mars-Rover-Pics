@@ -1,6 +1,6 @@
 import express from "express";
 import { readDates } from "../controllers/fileController";
-import { asyncHandler } from "../utils/asyncHandler";
+import { asyncHandler } from "../utils";
 
 const router = express.Router();
 

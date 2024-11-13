@@ -14,12 +14,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use(express.static('public'));
 
-app.get("/", (req: Request, res: Response) => {
+const apiRouter = express.Router();
+
+apiRouter.get("/", (req: Request, res: Response) => {
   res.send("Little Mars Health Check");
 });
+apiRouter.use('/rovers', roverRouter);
+apiRouter.use('/file', fileRouter);
 
-app.use('/rovers', roverRouter);
-app.use('/file', fileRouter);
+app.use('/api/v1', apiRouter);
 
 app.listen(port)
   .on('listening', () => {

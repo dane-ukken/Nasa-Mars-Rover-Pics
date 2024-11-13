@@ -1,6 +1,6 @@
 import express from "express";
 import { getAllRovers, getRoverImageList, saveRoverImage } from "../controllers/roverController";
-import { asyncHandler } from "../utils/asyncHandler";
+import { asyncHandler } from "../utils";
 
 const router = express.Router();
 
