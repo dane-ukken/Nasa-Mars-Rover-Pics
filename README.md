@@ -18,3 +18,7 @@ Bonus 2: Include unit tests, static analysis, performance tests, or any other be
 Bonus 3: Have the application run in Docker.
 
 
+# Scope of Solution
+
+There are two projects included in this solution.  A backend server and frontend web client 
+Information regarding building, testing, and running each project are in the README documents located in the root of each respective project.

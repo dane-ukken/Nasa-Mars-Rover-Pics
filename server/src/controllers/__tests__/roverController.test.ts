@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { getAllRovers, getRoverImageList, saveRoverImage } from '../roverController';
-import { getRovers, getRoverPhotos, downloadImageFromNasa } from '../../services/nasaService';
+import { getAllRovers, getRoverImageList } from '../roverController';
+import { getRovers, getRoverPhotos } from '../../services/nasaService';
 
 jest.mock('../../services/nasaService');
 
@@ -25,15 +25,17 @@ describe('NASA Controllers', () => {
                 { name: 'Curiosity' },
                 { name: 'Perseverance' }
             ];
-
+    
             (getRovers as jest.Mock).mockResolvedValue(mockRoverData);
-
-            await getAllRovers(mockResponse as Response);
-
+    
+            await getAllRovers(
+                mockRequest as Request,
+                mockResponse as Response
+            );
+    
             expect(getRovers).toHaveBeenCalled();
             expect(jsonMock).toHaveBeenCalledWith(mockRoverData);
         });
-
     });
 
     describe('getRoverImageList', () => {
@@ -83,59 +85,6 @@ describe('NASA Controllers', () => {
             );
         });
 
-
-    });
-
-    describe('saveRoverImage', () => {
-        it('should save image successfully', async () => {
-            const mockBody = {
-                imageUrl: 'http://example.com/photo.jpg',
-                rover: 'curiosity',
-                date: '2024-01-01',
-                camera: 'FHAZ',
-                id: '12345'
-            };
-
-            mockRequest.body = mockBody;
-
-            const mockSavedPath = '/path/to/saved/image.jpg';
-            (downloadImageFromNasa as jest.Mock)
-                .mockResolvedValue(mockSavedPath);
-
-            await saveRoverImage(
-                mockRequest as Request, 
-                mockResponse as Response
-            );
-
-            expect(downloadImageFromNasa).toHaveBeenCalledWith(
-                mockBody.imageUrl,
-                mockBody.rover,
-                mockBody.date,
-                mockBody.camera,
-                mockBody.id
-            );
-
-            expect(jsonMock).toHaveBeenCalledWith({
-                success: true,
-                path: mockSavedPath
-            });
-        });
-
-        it('should handle missing required parameters', async () => {
-            mockRequest.body = {
-                imageUrl: 'http://example.com/photo.jpg'
-            };
-
-            await saveRoverImage(
-                mockRequest as Request, 
-                mockResponse as Response
-            );
-
-            expect(mockResponse.status).toHaveBeenCalledWith(400);
-            expect(jsonMock).toHaveBeenCalledWith({
-                error: 'Missing required parameters'
-            });
-        });
 
     });
 });

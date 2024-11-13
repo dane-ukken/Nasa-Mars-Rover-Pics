@@ -7,7 +7,7 @@ const Header = () => {
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold flex items-center gap-2">
             <img src={logo} alt="Little Mars" className="w-16 h-16 object-center transform scale-150 rounded-full" />
-            <h1 className="text-2xl font-bold">Mars Rover Photos</h1>
+            <h1 className="text-3xl px-4 font-bold">Little Mars</h1>
         </Link>
         <nav>
           <ul className="flex gap-6">

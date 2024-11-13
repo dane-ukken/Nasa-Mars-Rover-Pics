@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { RoverApiResponse, PhotosApiResponse, ResponsePhoto, Photo } from '../types/rover';
-import { downloadImage } from '../utils';
+import { buildImageUrl, downloadImage } from '../utils';
 import { NASA_API } from '../constants';
 
 const BASE_URL = NASA_API.BASE_URL;
@@ -23,7 +23,7 @@ export const getRoverPhotos = async (
     const response = await axios.get<PhotosApiResponse>(url);
     return response.data.photos.map((photo: Photo) => ({
         id: photo.id,
-        img_src: photo.img_src,
+        img_src: buildImageUrl(rover, date, photo.camera.name, photo.id, photo.img_src),
         camera: photo.camera.name,
         cameraFullName: photo.camera.full_name
     }));
