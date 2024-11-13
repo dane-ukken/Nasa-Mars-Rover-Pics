@@ -3,26 +3,21 @@ import dotenv from "dotenv";
 import roverRouter from "./routes/rover";
 import fileRouter from "./routes/file";
 import { requestLogger } from "./middlewares/logger";
-import cors, { CorsOptions } from 'cors';
-
+import cors from 'cors';
+import rateLimit from 'express-rate-limit';
+import { getCorsOptions, getRateLimiterOptions } from "./utils";
 
 dotenv.config();
-const corsOptions: CorsOptions = {
-  origin: ['http://localhost:5173', 'http://localhost:3000'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-  maxAge: 86400
-};
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors(corsOptions));
+app.use(cors(getCorsOptions()));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use(express.static('public'));
+app.use(rateLimit(getRateLimiterOptions()));
 
 const apiRouter = express.Router();
 

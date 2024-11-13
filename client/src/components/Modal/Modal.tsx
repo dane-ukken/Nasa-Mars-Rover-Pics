@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { downloadImage } from '../../utils/downloadUtils';
-import { marsPhotosApi } from '../../services/api/marsPhotosApi';
 
 type ModalProps = {
   isOpen: boolean;
@@ -35,16 +34,11 @@ const Modal = ({ isOpen, onClose, imageUrl, cameraFullName, camera, selectedRove
 
   const handleDownload = async () => {
     try {
-      const fileName = `mars-rover-${selectedRover}-${camera.toLowerCase()}-${id}.png`;
+      const fileName = `mars-rover-${selectedRover}-${selectedDate}-${camera.toLowerCase()}-${id}.png`;
       await downloadImage(imageUrl, fileName);
     } catch (error) {
       console.error('Download failed:', error);
     }
-  };
-
-  const handleSaveToServer = async () => {
-    console.log('Save to server');
-    await marsPhotosApi.savePhotoToServer(imageUrl, camera, id, selectedRover, selectedDate);
   };
 
   if (!isOpen) return null;
@@ -71,25 +65,6 @@ const Modal = ({ isOpen, onClose, imageUrl, cameraFullName, camera, selectedRove
                     </h3>
                 </div>
               <div className="flex items-center gap-4">
-                <button
-                  onClick={handleSaveToServer}
-                  className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm
-                           transition-colors duration-200 flex items-center gap-2"
-                  aria-label="Download image"
-                >
-                  <svg 
-                    className="h-5 w-5" 
-                    fill="none" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth="2"
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                  </svg>
-                  Save To Server
-                </button>
                 <button
                   onClick={handleDownload}
                   className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm

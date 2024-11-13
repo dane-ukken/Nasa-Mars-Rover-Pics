@@ -78,63 +78,48 @@ export const MOCK_ROVERS = {
 };
 
 export const MOCK_PHOTOS = {
-    SINGLE_PHOTO: {
-        id: 1,
-        img_src: 'http://example.com/photo1.jpg',
-        camera: {
-            id: 1,
-            name: 'FHAZ',
-            full_name: 'Front Hazard Avoidance Camera',
-            rover_id: 0
-        },
-        sol: 0,
-        earth_date: '',
-        rover: MOCK_ROVERS.SINGLE_ROVER
-    },
     PHOTOS_RESPONSE: {
         photos: [
             {
                 id: 1,
                 img_src: 'http://example.com/photo1.jpg',
                 camera: {
-                    id: 1,
                     name: 'FHAZ',
-                    full_name: 'Front Hazard Avoidance Camera',
-                    rover_id: 0
-                },
-                sol: 0,
-                earth_date: '',
-                rover: MOCK_ROVERS.SINGLE_ROVER
+                    full_name: 'Front Hazard Avoidance Camera'
+                }
             },
             {
                 id: 2,
                 img_src: 'http://example.com/photo2.jpg',
                 camera: {
-                    id: 2,
                     name: 'NAVCAM',
-                    full_name: 'Navigation Camera',
-                    rover_id: 0
-                },
-                sol: 0,
-                earth_date: '',
-                rover: MOCK_ROVERS.SINGLE_ROVER
+                    full_name: 'Navigation Camera'
+                }
             }
         ]
-    } as PhotosApiResponse,
+    },
     FORMATTED_PHOTOS: [
         {
             id: 1,
-            img_src: 'http://example.com/photo1.jpg',
+            img_src: 'http://localhost:3000/api/v1/file/image/curiosity/2023-01-15/FHAZ/1?img_src=http://example.com/photo1.jpg',
             camera: 'FHAZ',
             cameraFullName: 'Front Hazard Avoidance Camera'
         },
         {
             id: 2,
-            img_src: 'http://example.com/photo2.jpg',
+            img_src: 'http://localhost:3000/api/v1/file/image/curiosity/2023-01-15/NAVCAM/2?img_src=http://example.com/photo2.jpg',
             camera: 'NAVCAM',
             cameraFullName: 'Navigation Camera'
         }
     ]
+};
+
+export const MOCK_DOWNLOADS = {
+    ROVER_NAME: 'curiosity',
+    IMAGE_URL: 'http://example.com/photo1.jpg',
+    CAMERA_NAME: 'FHAZ',
+    PHOTO_ID: 1,
+    SAVED_PATH: '/path/to/saved/image.jpg'
 };
 
 export const MOCK_RESPONSES = {
@@ -151,11 +136,3 @@ export const MOCK_RESPONSES = {
         config: {}
     }
 };
-
-export const MOCK_DOWNLOADS = {
-    IMAGE_URL: 'http://example.com/photo.jpg',
-    SAVED_PATH: '/downloaded/images/photo.jpg',
-    ROVER_NAME: 'curiosity',
-    CAMERA_NAME: 'FHAZ',
-    PHOTO_ID: 12345
-}; 

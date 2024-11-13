@@ -1,14 +1,12 @@
 import axios from 'axios';
-import { getRovers, getRoverPhotos, downloadImageFromNasa } from '../nasaService';
-import { downloadImage } from '../../utils';
+import { getRoverPhotos } from '../nasaService';
+import { buildImageUrl, downloadImage } from '../../utils';
 import { NASA_API } from '../../constants';
 import { 
-    MOCK_ROVERS, 
     MOCK_PHOTOS, 
     MOCK_RESPONSES,
     MOCK_DOWNLOADS,
-    MOCK_DATES,
-    TEST_CONFIG 
+    MOCK_DATES 
 } from '../../tests/constants/testData';
 
 jest.mock('axios');
@@ -20,34 +18,13 @@ const mockedDownloadImage = downloadImage as jest.MockedFunction<typeof download
 describe('Rover Service', () => {
     beforeEach(() => {
         jest.clearAllMocks();
-    });
-
-    describe('getRovers', () => {
-        it('should fetch rovers successfully', async () => {
-            const mockResponse = {
-                ...MOCK_RESPONSES.SUCCESS_RESPONSE,
-                data: MOCK_ROVERS.ROVERS_RESPONSE,
-                config: {
-                    url: `${NASA_API.BASE_URL}/rovers?api_key=${NASA_API.API_KEY}`
-                }
-            };
-
-            mockedAxios.get.mockResolvedValueOnce(mockResponse);
-
-            const result = await getRovers();
-
-            expect(mockedAxios.get).toHaveBeenCalledWith(
-                `${NASA_API.BASE_URL}/rovers?api_key=${NASA_API.API_KEY}`
-            );
-            expect(result).toEqual(MOCK_ROVERS.ROVERS_RESPONSE);
-        });
-
-        it('should handle API errors', async () => {
-            const error = new Error('API Error');
-            mockedAxios.get.mockRejectedValueOnce(error);
-
-            await expect(getRovers()).rejects.toThrow('API Error');
-        });
+        process.env.DOMAIN = 'localhost';
+        process.env.PORT = '3000';
+        
+        (buildImageUrl as jest.Mock).mockImplementation(
+            (rover, date, camera, id, originalImgSrc) => 
+                `http://localhost:3000/api/v1/file/image/${rover}/${date}/${camera}/${id}?img_src=${originalImgSrc}`
+        );
     });
 
     describe('getRoverPhotos', () => {
@@ -71,30 +48,5 @@ describe('Rover Service', () => {
             );
             expect(result).toEqual(MOCK_PHOTOS.FORMATTED_PHOTOS);
         });
-
-    });
-
-    describe('downloadImageFromNasa', () => {
-        it('should download image successfully', async () => {
-            mockedDownloadImage.mockResolvedValueOnce(MOCK_DOWNLOADS.SAVED_PATH);
-
-            const result = await downloadImageFromNasa(
-                MOCK_DOWNLOADS.IMAGE_URL,
-                MOCK_DOWNLOADS.ROVER_NAME,
-                MOCK_DATES.VALID_DATE,
-                MOCK_DOWNLOADS.CAMERA_NAME,
-                MOCK_DOWNLOADS.PHOTO_ID
-            );
-
-            expect(mockedDownloadImage).toHaveBeenCalledWith(
-                MOCK_DOWNLOADS.IMAGE_URL,
-                MOCK_DOWNLOADS.ROVER_NAME,
-                MOCK_DATES.VALID_DATE,
-                MOCK_DOWNLOADS.CAMERA_NAME,
-                MOCK_DOWNLOADS.PHOTO_ID
-            );
-            expect(result).toBe(MOCK_DOWNLOADS.SAVED_PATH);
-        });
-
     });
 });
