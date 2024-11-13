@@ -36,7 +36,7 @@ app.use((req: Request, res: Response) => {
 const server = app.listen(port, () => {
   console.log(`[server]: NODE_ENV=${process.env.NODE_ENV}`);
   console.log(`[server]: LOG_LEVEL=${process.env.LOG_LEVEL}`);
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+  console.log(`[server]: Server is running at http://${process.env.DOMAIN}:${port}`);
 });
 
 server.on('error', (error) => {

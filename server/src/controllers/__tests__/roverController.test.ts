@@ -25,15 +25,17 @@ describe('NASA Controllers', () => {
                 { name: 'Curiosity' },
                 { name: 'Perseverance' }
             ];
-
+    
             (getRovers as jest.Mock).mockResolvedValue(mockRoverData);
-
-            await getAllRovers(mockResponse as Response);
-
+    
+            await getAllRovers(
+                mockRequest as Request,
+                mockResponse as Response
+            );
+    
             expect(getRovers).toHaveBeenCalled();
             expect(jsonMock).toHaveBeenCalledWith(mockRoverData);
         });
-
     });
 
     describe('getRoverImageList', () => {

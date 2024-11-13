@@ -27,9 +27,42 @@ const MainContent = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-      </div>
+      <>
+        <div className="animate-pulse">
+          <div className="h-12 bg-slate-200 w-3/4 mx-auto mb-8 rounded"></div>
+          <div className="overflow-x-auto">
+            <table className="min-w-full table-auto">
+              <thead className="bg-gray-100">
+                <tr>
+                  {['ID', 'Camera', 'Image', 'Action'].map((header) => (
+                    <th key={header} className="px-6 py-3 text-left">
+                      <div className="h-4 bg-slate-200 w-16 rounded"></div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[1, 2, 3, 4].map((index) => (
+                  <tr key={index} className="border-t">
+                    <td className="px-6 py-4">
+                      <div className="h-4 bg-slate-200 w-16 rounded"></div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="h-4 bg-slate-200 w-32 rounded"></div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="h-20 w-20 bg-slate-200 rounded"></div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="h-8 bg-slate-200 w-16 rounded"></div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </>
     );
   }
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getRovers, getRoverPhotos } from "../services/nasaService";
 
-export const getAllRovers = async (res: Response) => {
+export const getAllRovers = async (req: Request, res: Response) => {
     const data = await getRovers();
     res.json(data);
 };

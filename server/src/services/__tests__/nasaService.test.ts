@@ -13,7 +13,6 @@ jest.mock('axios');
 jest.mock('../../utils');
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
-const mockedDownloadImage = downloadImage as jest.MockedFunction<typeof downloadImage>;
 
 describe('Rover Service', () => {
     beforeEach(() => {
