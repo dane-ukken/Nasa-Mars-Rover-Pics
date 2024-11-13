@@ -1,4 +1,7 @@
-# Server App for Mars Rover Images
+# Little Mars
+
+I have added the .env file to the GitHub repo just for easy testing.
+
 This is a Express.js server app that allows users to view Mars rover images for a given date.
 
 ## Exposed REST Endpoints
@@ -9,18 +12,8 @@ This is a Express.js server app that allows users to view Mars rover images for 
   - http://localhost:3000/api/v1/rovers
 - GET list of photos for a given date and rover: `/api/v1/rovers/images`
   - http://localhost:3000/api/v1/rovers/images?rover=opportunity&date=2018-06-02
-- POST download an individual photo to server's file system - under public/downloads/:rover/:date/:id.jpg: `/api/v1/rovers/save-image`
-  - http://localhost:3000/api/v1/rovers/save-image
-  body:
-  ```
-  {
-    "imageUrl": "http://mars.jpl.nasa.gov/msl-raw-images/msss/01622/mcam/1622MR0083260010801245I01_DXXX.jpg",
-    "rover": "opportunity",
-    "date": "2018-06-02",
-    "camera": "mcam",
-    "id": "617694"
-  }
-  ```
+- GET Call to fetch the photo from server. If it is not there, we save it from NASA and serve it: `/api/v1/file/image  /:rover/:date/:camera/:id`
+  - http://localhost:3000/api/v1/file/image/opportunity/2018-06-02/mcam/617694
 
 
 ### Prerequisites
@@ -38,6 +31,10 @@ npm install
 ```
 
 ## Running the tests
+
+```bash
+npm run test
+```
 
 ## Build
 
@@ -75,3 +72,7 @@ Express will start up the server in the Docker container at port **3000**.  The 
 * [Nasa API](https://api.nasa.gov/) - Mars Rover Images API
 * [Axios](https://axios-http.com/) - HTTP client
 * [Jest](https://jestjs.io/) - Testing framework
+* [SonarQube](https://www.sonarqube.org/) - Code Quality
+* [ESLint](https://eslint.org/) - Linting
+* [Prettier](https://prettier.io/) - Code Formatting
+* [Husky](https://typicode.github.io/husky/#/) - Git Hooks

@@ -33,7 +33,7 @@ npm run build
 
 ## Test
 
-Tests are forthcoming and will be done using the Jest Testing framework.
+Tests are not done yet since this is a simple bonus section
 
 ## Built With
 
