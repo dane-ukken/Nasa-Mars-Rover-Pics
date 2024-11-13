@@ -4,7 +4,6 @@ import { FILE_PATH, IMAGE_EXTENSION, DOWNLOAD_PATH } from "../constants";
 import path from "path";
 import fs from "fs";
 import { downloadImageFromNasa } from "../services/nasaService";
-import { getRoverPhotos } from "../services/nasaService";
 
 export const readDates = async (req: Request, res: Response) => {
     res.json({ dates: await parseDatesFromFile(FILE_PATH) });
