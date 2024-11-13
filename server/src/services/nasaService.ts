@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { RoverApiResponse, PhotosApiResponse, ResponsePhoto, Photo } from '../types/rover';
-import { downloadImage } from '../utils/imageUtils';
+import { downloadImage } from '../utils/downloadUtils';
 import { NASA_API } from '../constants';
 
 const BASE_URL = NASA_API.BASE_URL;

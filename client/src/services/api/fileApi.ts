@@ -3,7 +3,7 @@ import { DateData } from '../../types/dates';
 
 export const fileApi = {
     getDates: async (): Promise<DateData> => {
-        const { data } = await axiosInstance.get<DateData>('/file/get-dates');
+        const { data } = await axiosInstance.get<DateData>('/file/dates');
         return data;
     }
 }

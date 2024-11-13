@@ -26,4 +26,3 @@ export const saveRoverImage = async (req: Request, res: Response) => {
     const savedPath = await downloadImageFromNasa(imageUrl, rover, date, camera, id);
     res.json({ success: true, path: savedPath });
 };
-

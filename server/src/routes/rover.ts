@@ -5,7 +5,7 @@ import { asyncHandler } from "../utils/asyncHandler";
 const router = express.Router();
 
 router.get("/", asyncHandler(getAllRovers));
-router.get("/image-list", asyncHandler(getRoverImageList));
+router.get("/images", asyncHandler(getRoverImageList));
 router.post("/save-image", asyncHandler(saveRoverImage));
 
 export default router;

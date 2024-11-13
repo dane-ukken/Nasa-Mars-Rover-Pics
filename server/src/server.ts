@@ -24,7 +24,7 @@ app.use('/file', fileRouter);
 app.listen(port)
   .on('listening', () => {
   console.log(`[server]: NODE_ENV=${process.env.NODE_ENV}`);
-  console.log(`[server]: LOG_LEVEL=${process.env.NASA_API_KEY}`);
+  console.log(`[server]: LOG_LEVEL=${process.env.LOG_LEVEL}`);
   console.log(`[server]: Server is running at http://localhost:${port}`);
 })
 .on('error', (error) => {
