@@ -68,8 +68,6 @@ export async function downloadNasaImage(
     }
 }
 
-
-
 export async function getRoverPhotos(
     rover: string,
     page: string,

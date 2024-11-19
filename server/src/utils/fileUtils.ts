@@ -5,7 +5,6 @@ export function isReadableStream(value: unknown): value is NodeJS.ReadableStream
     return value instanceof Stream && typeof (value as any).pipe === 'function';
 }
 
-
 export function buildFilePath(
     fileName: string, 
     baseDir: string = 'public/downloads'
