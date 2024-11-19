@@ -1,28 +1,23 @@
-export type Camera = {
+export interface Camera {
     id: number;
     name: string;
     rover_id: number;
     full_name: string;
-  }
-  
-export type RoverCamera = {
-    name: string;
-    full_name: string;
 }
-  
-export type Rover = {
+
+export interface Rover {
     id: number;
     name: string;
     landing_date: string;
     launch_date: string;
-    status: 'active' | 'inactive' | 'complete';
+    status: 'active' | 'complete' | 'inactive';
     max_sol: number;
     max_date: string;
     total_photos: number;
-    cameras: RoverCamera[];
+    cameras: Camera[];
 }
 
-export type Photo = {
+export interface Photo {
     id: number;
     sol: number;
     camera: Camera;
@@ -30,12 +25,20 @@ export type Photo = {
     earth_date: string;
     rover: Rover;
 }
-  
-export type RoverApiResponse = {
+
+export interface FormattedPhoto {
+    id: number;
+    img_src: string;
+    camera: string;
+    cameraFullName: string;
+    localUrl?: string;
+}
+
+export interface RoverApiResponse {
     rovers: Rover[];
 }
-  
-export type PhotosApiResponse = {
+
+export interface PhotosApiResponse {
     photos: Photo[];
 }
 
@@ -44,27 +47,4 @@ export type ResponsePhoto = {
     img_src: string;
     camera: string;
     cameraFullName: string;
-}
-
-export type ImageListResponse = {
-    photos: ResponsePhoto[];
-}
-
-export type RoverConfigList = {
-    rovers: Rover[];
-}
-
-export type ImageListForRover = {
-    id: number;
-    name: string;
-    images: ResponsePhoto[];
-}
-
-export type ImageListForDatePerRover = {
-    date: string;
-    rovers: ImageListForRover[];
-}
-
-export type ImageListForFile = {
-    dates: ImageListForDatePerRover[];
 }

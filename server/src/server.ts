@@ -2,10 +2,11 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import roverRouter from "./routes/rover";
 import fileRouter from "./routes/file";
-import { requestLogger } from "./middlewares/logger";
+import { loggerMiddleware } from "./middlewares/logger";
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import { getCorsOptions, getRateLimiterOptions } from "./utils";
+import { errorHandler } from "./middlewares/errorHandler";
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ const port = process.env.PORT || 3000;
 app.use(cors(getCorsOptions()));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(requestLogger);
+app.use(loggerMiddleware);
 app.use(express.static('public'));
 app.use(rateLimit(getRateLimiterOptions()));
 
@@ -32,6 +33,7 @@ app.use((req: Request, res: Response) => {
   res.status(404).json({ error: 'Not Found' });
 });
 
+app.use(errorHandler);
 
 const server = app.listen(port, () => {
   console.log(`[server]: NODE_ENV=${process.env.NODE_ENV}`);
