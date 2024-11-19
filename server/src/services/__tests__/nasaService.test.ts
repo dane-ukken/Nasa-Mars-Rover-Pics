@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getRoverPhotos } from '../nasaService';
-import { buildImageUrl, downloadImage } from '../../utils';
+import { buildImageUrl } from '../../utils';
 import { NASA_API } from '../../constants';
 import { 
     MOCK_PHOTOS, 
