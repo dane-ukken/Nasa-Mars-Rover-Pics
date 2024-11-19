@@ -1,39 +1,39 @@
 import { Request, Response } from "express";
 import { parseDatesFromFile  } from "../services/fileService";
-import { FILE_PATH, IMAGE_EXTENSION, DOWNLOAD_PATH } from "../constants";
-import path from "path";
-import fs from "fs";
-import { downloadImageFromNasa } from "../services/nasaService";
+import { DOWNLOAD_PATH, FILE_PATH } from "../constants";
+import { downloadNasaImage } from "../services/nasaService";
+import { cleanupOldFiles } from '../services/fileService';
+import { createError } from '../middlewares/errorHandler';
 
 export const readDates = async (req: Request, res: Response) => {
     res.json({ dates: await parseDatesFromFile(FILE_PATH) });
 }
 
-export const getImage = async (req: Request, res: Response) => {
+export const getImage = (async (req: Request, res: Response) => {
     const { rover, date, camera, id } = req.params;
     const { img_src } = req.query;
-    
-    const imagePath = path.join(
-        DOWNLOAD_PATH.getImagePath(rover, date, camera),
-        `${id}${IMAGE_EXTENSION}`
-    );
 
-    if (!fs.existsSync(imagePath)) {
-        try {
-            await downloadImageFromNasa(
-                img_src as string,
-                rover,
-                date,
-                camera,
-                parseInt(id)
-            );
-        } catch (error) {
-            return res.status(500).json({ 
-                error: 'Failed to download image',
-                details: error instanceof Error ? error.message : 'Unknown error'
-            });
-        }
+    if (!rover || !date || !camera || !id) {
+        throw createError('Missing required parameters', 400, 'VALIDATION_ERROR');
     }
 
-    res.sendFile(imagePath);
+    if (!img_src || typeof img_src !== 'string') {
+        throw createError('Image URL is required', 400, 'VALIDATION_ERROR');
+    }
+
+    const filePath = await downloadNasaImage(img_src, rover, date, camera, id);
+    res.sendFile(filePath, { root: '.' });
+});
+
+export const cleanupImages = async (req: Request, res: Response) => {
+    try {
+        await cleanupOldFiles(DOWNLOAD_PATH.BASE, 24); 
+        res.json({ message: 'Image cleanup completed successfully' });
+    } catch (error) {
+        throw createError(
+            'Failed to cleanup images',
+            500,
+            'CLEANUP_ERROR'
+        );
+    }
 };
